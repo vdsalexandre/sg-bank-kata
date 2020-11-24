@@ -6,6 +6,10 @@ public class Account {
 
     private BigDecimal balance;
 
+    public Account() {
+        balance = BigDecimal.ZERO;
+    }
+
     public void deposit(BigDecimal amount) {
         balance = amount;
     }

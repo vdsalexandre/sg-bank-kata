@@ -3,6 +3,7 @@ package kata.sg;
 import kata.sg.model.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
@@ -22,6 +23,14 @@ public class SaveMoneyTest {
     // As a bank client
     // I want to make a deposit in my account
 
+
+    @Test
+    void returns_true_when_empty_account_balance_is_equal_to_ZERO() {
+        Account account = new Account();
+
+        assertThat(account.getBalance()).isEqualTo(BigDecimal.ZERO);
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"0", "1", "3.50", "100", "1750650", "13.88"})
     void returns_true_when_account_balance_is_equal_to_amount_deposited(String amount) {
@@ -32,4 +41,5 @@ public class SaveMoneyTest {
 
         assertThat(account.getBalance()).isEqualTo(expectedBalance);
     }
+
 }
