@@ -3,6 +3,7 @@ package kata.sg.model;
 import kata.sg.exception.WrongAmountException;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Account {
 
@@ -38,5 +39,9 @@ public class Account {
             throw new WrongAmountException("Wrong amount, the amount to withdraw is greater than the balance");
 
         balance = balance.subtract(amount);
+    }
+
+    public List<Transaction> getTransactionHistory() {
+        return null;
     }
 }
