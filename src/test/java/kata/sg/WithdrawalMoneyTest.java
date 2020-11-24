@@ -1,5 +1,6 @@
 package kata.sg;
 
+import kata.sg.exception.WrongAmountException;
 import kata.sg.model.Account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class WithDrawalMoneyTest {
+public class WithdrawalMoneyTest {
 
     // US 2:
     // In order to retrieve some or all of my savings
@@ -24,7 +26,7 @@ public class WithDrawalMoneyTest {
                 "10,7.50,2.50",
                 "15,15,0"})
     @DisplayName("Test 1: after a withdrawal, the account balance is correct")
-    void returns_true_when_account_balance_is_equal_to_expected_balance_after_withdrawal(String initialAmount, String amount, String expectedBalance) {
+    void returns_true_when_account_balance_is_equal_to_expected_balance_after_withdrawal(String initialAmount, String amount, String expectedBalance) throws WrongAmountException {
         Account account = new Account(new BigDecimal(initialAmount));
         account.withdraw(new BigDecimal(amount));
 
@@ -33,7 +35,7 @@ public class WithDrawalMoneyTest {
 
     @Test
     @DisplayName("Test 2: after a few withdrawals, the account balance is still correct")
-    void returns_true_when_account_balance_is_equal_to_expected_balance_after_a_few_withdrawals() {
+    void returns_true_when_account_balance_is_equal_to_expected_balance_after_a_few_withdrawals() throws WrongAmountException {
         BigDecimal expectedBalance = new BigDecimal("25.50");
 
         Account account = new Account(new BigDecimal("100.00"));
@@ -43,5 +45,17 @@ public class WithDrawalMoneyTest {
         account.withdraw(new BigDecimal("1.75"));
 
         assertThat(account.getBalance()).isEqualTo(expectedBalance);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"10,15",
+                "99.99,100",
+                "125000,126000"})
+    @DisplayName("Test 3: an exception is thrown when the amount to withdraw is bigger than balance")
+    void throws_wrong_amount_exception_when_trying_to_withdraw_more_than_balance(String balance, String amount) {
+        Account account = new Account(new BigDecimal(balance));
+        assertThatThrownBy(() -> account.withdraw(new BigDecimal(amount)))
+                .isInstanceOf(WrongAmountException.class)
+                .hasMessage("Wrong amount, the amount to withdraw is greater than the balance");
     }
 }

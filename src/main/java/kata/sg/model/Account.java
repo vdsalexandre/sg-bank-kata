@@ -30,7 +30,10 @@ public class Account {
         return balance;
     }
 
-    public void withdraw(BigDecimal amount) {
+    public void withdraw(BigDecimal amount) throws WrongAmountException {
+        if (amount.compareTo(balance) > 0)
+            throw new WrongAmountException("Wrong amount, the amount to withdraw is greater than the balance");
+
         balance = balance.subtract(amount);
     }
 }
