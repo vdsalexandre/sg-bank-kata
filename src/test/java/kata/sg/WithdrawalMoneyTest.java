@@ -58,4 +58,14 @@ public class WithdrawalMoneyTest {
                 .isInstanceOf(WrongAmountException.class)
                 .hasMessage("Wrong amount, the amount to withdraw is greater than the balance");
     }
+
+    @Test
+    @DisplayName("Test 4: an exception is thrown when a wrong amount is withdrawn")
+    void throws_wrong_amount_exception_when_trying_to_withdraw_wrong_amount() {
+        Account account = new Account(new BigDecimal("100.00"));
+        assertThatThrownBy(() -> account.withdraw(new BigDecimal("-5.50")))
+                .isInstanceOf(WrongAmountException.class)
+                .hasMessage("Wrong amount, value needs to be greater than 0");
+
+    }
 }

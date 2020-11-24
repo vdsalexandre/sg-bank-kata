@@ -31,6 +31,9 @@ public class Account {
     }
 
     public void withdraw(BigDecimal amount) throws WrongAmountException {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0)
+            throw new WrongAmountException("Wrong amount, value needs to be greater than 0");
+
         if (amount.compareTo(balance) > 0)
             throw new WrongAmountException("Wrong amount, the amount to withdraw is greater than the balance");
 
