@@ -11,7 +11,7 @@ public class Account {
     }
 
     public void deposit(BigDecimal amount) {
-        balance = amount;
+        balance = balance.add(amount);
     }
 
     public BigDecimal getBalance() {
