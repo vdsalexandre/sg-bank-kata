@@ -12,6 +12,10 @@ public class Account {
         balance = BigDecimal.ZERO;
     }
 
+    public Account(BigDecimal amount) {
+        balance = amount;
+    }
+
     public void deposit(BigDecimal amount) throws WrongAmountException {
         if (amount.compareTo(BigDecimal.ZERO) <= 0)
             throw new WrongAmountException("Wrong amount, value needs to be greater than 0");
@@ -21,5 +25,9 @@ public class Account {
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public void withdraw(BigDecimal amount) {
+        balance = balance.subtract(amount);
     }
 }
