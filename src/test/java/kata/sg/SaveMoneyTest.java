@@ -23,6 +23,14 @@ public class SaveMoneyTest {
 
 
     @Test
+    @DisplayName("Test 0: account initialized with null value has a balance of ZERO")
+    void returns_true_when_account_balance_is_equal_to_zero_when_account_initialized_with_null_value() {
+        Account account = new Account(null);
+
+        assertThat(account.getBalance()).isEqualTo(BigDecimal.ZERO);
+    }
+
+    @Test
     @DisplayName("Test 1: empty account returns a balance of ZERO")
     void returns_true_when_empty_account_balance_is_equal_to_ZERO() {
         Account account = new Account();

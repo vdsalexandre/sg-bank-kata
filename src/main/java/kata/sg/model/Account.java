@@ -13,7 +13,10 @@ public class Account {
     }
 
     public Account(BigDecimal amount) {
-        balance = amount;
+        if (amount == null)
+            balance = BigDecimal.ZERO;
+        else
+            balance = amount;
     }
 
     public void deposit(BigDecimal amount) throws WrongAmountException {
