@@ -12,18 +12,15 @@ import static kata.sg.model.Operation.WITHDRAW;
 
 public class Account {
 
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
     private List<Transaction> transactions = new ArrayList<>();
 
-    public Account() {
-        balance = BigDecimal.ZERO;
-    }
+    public Account() { }
 
     public Account(BigDecimal amount) {
-        if (amount == null)
-            balance = BigDecimal.ZERO;
-        else
+        if (amount != null) {
             balance = amount;
+        }
     }
 
     public void deposit(BigDecimal amount) throws WrongAmountException {
