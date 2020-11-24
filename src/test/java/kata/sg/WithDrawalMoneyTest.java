@@ -23,10 +23,25 @@ public class WithDrawalMoneyTest {
                 "175.95,175.95,0.00",
                 "10,7.50,2.50",
                 "15,15,0"})
-    @DisplayName("Test 1: after a withdraw, the account balance is correct")
-    void returns_true_when_account_balance_is_equal_to_expected_balance_after_withdraw(String initialAmount, String amount, String expectedBalance) {
+    @DisplayName("Test 1: after a withdrawal, the account balance is correct")
+    void returns_true_when_account_balance_is_equal_to_expected_balance_after_withdrawal(String initialAmount, String amount, String expectedBalance) {
         Account account = new Account(new BigDecimal(initialAmount));
         account.withdraw(new BigDecimal(amount));
+
+        assertThat(account.getBalance()).isEqualTo(expectedBalance);
+    }
+
+    @Test
+    @DisplayName("Test 2: after a few withdrawals, the account balance is still correct")
+    void returns_true_when_account_balance_is_equal_to_expected_balance_after_a_few_withdrawals() {
+        BigDecimal expectedBalance = new BigDecimal("25.50");
+
+        Account account = new Account(new BigDecimal("100.00"));
+        account.withdraw(new BigDecimal("50.50"));
+        account.withdraw(new BigDecimal("5.00"));
+        account.withdraw(new BigDecimal("17.25"));
+        account.withdraw(new BigDecimal("1.75"));
+
         assertThat(account.getBalance()).isEqualTo(expectedBalance);
     }
 }
