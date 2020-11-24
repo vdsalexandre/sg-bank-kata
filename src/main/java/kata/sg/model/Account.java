@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kata.sg.model.Operation.DEPOSIT;
+import static kata.sg.model.Operation.WITHDRAW;
 
 public class Account {
 
@@ -30,7 +31,7 @@ public class Account {
             throw new WrongAmountException("Wrong amount, value needs to be greater than 0");
 
         balance = balance.add(amount);
-        transactions.add(new Transaction(LocalDateTime.now(), DEPOSIT, amount));
+        addTransaction(DEPOSIT, amount);
     }
 
     public BigDecimal getBalance() {
@@ -45,9 +46,14 @@ public class Account {
             throw new WrongAmountException("Wrong amount, the amount to withdraw is greater than the balance");
 
         balance = balance.subtract(amount);
+        addTransaction(WITHDRAW, amount);
     }
 
     public List<Transaction> getTransactionHistory() {
         return transactions;
+    }
+
+    private void addTransaction(Operation operation, BigDecimal amount) {
+        transactions.add(new Transaction(LocalDateTime.now(), operation, amount));
     }
 }
