@@ -3,11 +3,16 @@ package kata.sg.model;
 import kata.sg.exception.WrongAmountException;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import static kata.sg.model.Operation.DEPOSIT;
 
 public class Account {
 
     private BigDecimal balance;
+    private List<Transaction> transactions = new ArrayList<>();
 
     public Account() {
         balance = BigDecimal.ZERO;
@@ -25,6 +30,7 @@ public class Account {
             throw new WrongAmountException("Wrong amount, value needs to be greater than 0");
 
         balance = balance.add(amount);
+        transactions.add(new Transaction(LocalDateTime.now(), DEPOSIT, amount));
     }
 
     public BigDecimal getBalance() {
@@ -42,6 +48,6 @@ public class Account {
     }
 
     public List<Transaction> getTransactionHistory() {
-        return null;
+        return transactions;
     }
 }
