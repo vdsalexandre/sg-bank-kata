@@ -13,11 +13,6 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class SaveMoneyTest {
 
-    @Test
-    void test_environment() {
-        assertThat(true).isTrue();
-    }
-
     // US 1:
     //
     // In order to save money
