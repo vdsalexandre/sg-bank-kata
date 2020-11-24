@@ -1,10 +1,8 @@
 # SG Bank Kata
-## Each story is separated in a new branch
+## Each story is separated in a new test file
 ### Save Money
-- branch : story/us1
 
 ### Withdraw Money
-- branch : story/us2
 
 ### See history
-- branch : story/us3
+
