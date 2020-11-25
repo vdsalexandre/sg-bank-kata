@@ -3,21 +3,20 @@ package kata.sg.model;
 import kata.sg.exception.WrongAmountException;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class Amount {
     private BigDecimal value;
 
-    public Amount() {
-        value = BigDecimal.ZERO;
-    }
-
-    public Amount(String initialAmount) throws WrongAmountException {
+    private Amount(String initialAmount) throws WrongAmountException {
         try {
             value = new BigDecimal(initialAmount);
         } catch (NumberFormatException ex) {
             throw new WrongAmountException("Wrong amount, value needs to be a digit");
         }
+    }
+
+    public static Amount of(String initialAmount) throws WrongAmountException {
+        return new Amount(initialAmount);
     }
 
     public BigDecimal getValue() {

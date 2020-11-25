@@ -1,27 +1,27 @@
-//package kata.sg;
-//
-//import kata.sg.exception.WrongAmountException;
-//import kata.sg.model.Account;
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.params.ParameterizedTest;
-//import org.junit.jupiter.params.provider.CsvSource;
-//import org.junit.jupiter.params.provider.ValueSource;
-//
-//import java.math.BigDecimal;
-//
-//import static org.assertj.core.api.Assertions.assertThatThrownBy;
-//import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-//
-//public class SaveMoneyTest {
-//
-//    // US 1:
-//    //
-//    // In order to save money
-//    // As a bank client
-//    // I want to make a deposit in my account
-//
-//
+package kata.sg;
+
+import kata.sg.exception.WrongAmountException;
+import kata.sg.model.Account;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.math.BigDecimal;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
+public class SaveMoneyTest {
+
+    // US 1:
+    //
+    // In order to save money
+    // As a bank client
+    // I want to make a deposit in my account
+
+
 //    @Test
 //    @DisplayName("Test 0: account initialized with null value has a balance of ZERO")
 //    void returns_true_when_account_balance_is_equal_to_zero_when_account_initialized_with_null_value() {
@@ -75,4 +75,4 @@
 //                .isInstanceOf(WrongAmountException.class)
 //                .hasMessage("Wrong amount, value needs to be greater than 0");
 //    }
-//}
+}

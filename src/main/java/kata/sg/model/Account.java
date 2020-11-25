@@ -7,17 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
-
     private List<Transaction> transactions = new ArrayList<>();
 
     public Account() { }
+
+    public Account(Amount initialAmount) {
+        deposit(initialAmount);
+    }
 
     public void deposit(Amount amount) {
         addTransaction(amount);
     }
 
     public Amount getBalance() throws WrongAmountException {
-        Amount balance = new Amount();
+        Amount balance = Amount.of("0");
 
         for (Transaction transaction : transactions) {
             balance = balance.add(transaction.getAmount());

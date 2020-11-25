@@ -1,7 +1,6 @@
 package kata.sg;
 
 import kata.sg.exception.WrongAmountException;
-import kata.sg.model.Account;
 import kata.sg.model.Amount;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class AmountTest {
 
     @Test
-    void returns_true_when_new_amount_without_value_is_equal_to_ZERO() {
+    void returns_true_when_new_amount_without_value_is_equal_to_ZERO() throws WrongAmountException {
         BigDecimal expectedAmount = BigDecimal.ZERO;
 
-        Amount amount = new Amount();
+        Amount amount = Amount.of("0");
 
         assertThat(amount.getValue()).isEqualTo(expectedAmount);
     }
@@ -29,7 +28,7 @@ public class AmountTest {
     void returns_true_when_new_amount_value_is_equal_to_expected_value(String initialAmount) throws WrongAmountException {
         BigDecimal expectedAmount = new BigDecimal(initialAmount);
 
-        Amount amount = new Amount(initialAmount);
+        Amount amount = Amount.of(initialAmount);
 
         assertThat(amount.getValue()).isEqualTo(expectedAmount);
     }
@@ -37,16 +36,16 @@ public class AmountTest {
     @ParameterizedTest
     @ValueSource(strings = {"toto", "125GT", "-0.4E", "???"})
     void throws_exception_when_wrong_amount_is_created(String initialAmount) {
-        assertThatThrownBy(() -> new Amount(initialAmount))
+        assertThatThrownBy(() -> Amount.of(initialAmount))
                 .isInstanceOf(WrongAmountException.class)
                 .hasMessage("Wrong amount, value needs to be a digit");
     }
 
     @Test
     void returns_true_when_negate_value_is_equal_to_expected_value() throws WrongAmountException {
-        Amount expectedAmount = new Amount("-5");
+        Amount expectedAmount = Amount.of("-5");
 
-        Amount amount = new Amount("5");
+        Amount amount = Amount.of("5");
         Amount negateAmount = amount.negate();
 
         assertThat(negateAmount).isEqualTo(expectedAmount);
@@ -55,8 +54,8 @@ public class AmountTest {
     @ParameterizedTest
     @CsvSource({"50,100", "99.99,100"})
     void returns_true_when_amount_is_greater_than_expected_amount() throws WrongAmountException {
-        Amount smallAmount = new Amount("50");
-        Amount amount = new Amount("100");
+        Amount smallAmount = Amount.of("50");
+        Amount amount = Amount.of("100");
 
         assertThat(amount.isGreaterThan(smallAmount)).isTrue();
     }
