@@ -12,7 +12,8 @@ public class Account {
     public Account() { }
 
     public Account(Amount initialAmount) {
-        deposit(initialAmount);
+        if (initialAmount != null)
+            deposit(initialAmount);
     }
 
     public void deposit(Amount amount) {
