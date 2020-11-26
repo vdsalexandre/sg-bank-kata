@@ -22,13 +22,9 @@ public class Account {
     }
 
     public Amount getBalance() {
-        Amount balance = Amount.of(BigDecimal.ZERO);
-
-        for (Transaction transaction : transactions) {
-            balance = balance.add(transaction.getAmount());
-        }
-
-        return balance;
+        return transactions.stream()
+                .map(Transaction::getAmount)
+                .reduce(Amount.of(BigDecimal.ZERO), Amount::add);
     }
 
     public void withdraw(Amount amount) throws WrongAmountException {

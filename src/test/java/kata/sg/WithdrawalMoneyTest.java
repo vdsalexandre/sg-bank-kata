@@ -56,8 +56,9 @@ public class WithdrawalMoneyTest {
                 "99.99,100",
                 "125000,126000"})
     @DisplayName("Test 3: an exception is thrown when the amount to withdraw is bigger than balance")
-    void throws_wrong_amount_exception_when_trying_to_withdraw_more_than_balance(String balance, String amount) {
+    void throws_wrong_amount_exception_when_trying_to_withdraw_more_than_balance(String balance, String amount) throws WrongAmountException {
         Account account = new Account(Amount.of(new BigDecimal(balance)));
+
         assertThatThrownBy(() -> account.withdraw(Amount.of(new BigDecimal(amount))))
                 .isInstanceOf(WrongAmountException.class)
                 .hasMessage("Wrong amount, the amount withdrawn must not be greater than the balance");

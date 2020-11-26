@@ -3,13 +3,11 @@ package kata.sg.model;
 import java.math.BigDecimal;
 
 public class Amount {
-    private BigDecimal value;
+    private BigDecimal value = BigDecimal.ZERO;
 
     private Amount(BigDecimal initialAmount) {
         if (initialAmount != null)
             value = initialAmount;
-        else
-            value = BigDecimal.ZERO;
     }
 
     public static Amount of(BigDecimal initialAmount) {
