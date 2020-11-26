@@ -2,6 +2,7 @@ package kata.sg.model;
 
 import kata.sg.exception.WrongAmountException;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,8 @@ public class Account {
         addTransaction(amount);
     }
 
-    public Amount getBalance() throws WrongAmountException {
-        Amount balance = Amount.of("0");
+    public Amount getBalance() {
+        Amount balance = Amount.of(BigDecimal.ZERO);
 
         for (Transaction transaction : transactions) {
             balance = balance.add(transaction.getAmount());

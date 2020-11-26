@@ -7,15 +7,14 @@ import java.math.BigDecimal;
 public class Amount {
     private BigDecimal value;
 
-    private Amount(String initialAmount) throws WrongAmountException {
-        try {
-            value = new BigDecimal(initialAmount);
-        } catch (NumberFormatException ex) {
-            throw new WrongAmountException("Wrong amount, value needs to be a digit");
-        }
+    private Amount(BigDecimal initialAmount) {
+        if (initialAmount != null)
+            value = initialAmount;
+        else
+            value = BigDecimal.ZERO;
     }
 
-    public static Amount of(String initialAmount) throws WrongAmountException {
+    public static Amount of(BigDecimal initialAmount) {
         return new Amount(initialAmount);
     }
 
@@ -23,8 +22,8 @@ public class Amount {
         return value;
     }
 
-    public Amount negate() throws WrongAmountException {
-        return new Amount(value.negate().toString());
+    public Amount negate() {
+        return new Amount(value.negate());
     }
 
     @Override
@@ -35,8 +34,8 @@ public class Amount {
         return value.equals(amount.value);
     }
 
-    public Amount add(Amount other) throws WrongAmountException {
-        return new Amount(value.add(other.value).toString());
+    public Amount add(Amount other) {
+        return new Amount(value.add(other.value));
     }
 
     public boolean isGreaterThan(Amount other) {
