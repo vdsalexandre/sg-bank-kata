@@ -7,6 +7,7 @@ import kata.sg.model.Transaction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +25,8 @@ public class AccountHistoryTest {
 
     @Test
     @DisplayName("Test 1: after a deposit of an amount of 100, the transaction history contains one deposit of 100")
-    void returns_true_when_list_of_transaction_contains_the_good_one_transaction() throws WrongAmountException {
-        Amount amount = Amount.of("100");
+    void returns_true_when_list_of_transaction_contains_the_good_one_transaction() {
+        Amount amount = Amount.of(new BigDecimal("100"));
 
         List<Transaction> expectedTransactionHistory = Collections.singletonList(
                 new Transaction(LocalDateTime.now(), amount));
@@ -38,10 +39,10 @@ public class AccountHistoryTest {
 
     @Test
     @DisplayName("Test 2: after a few deposits, the transaction history contains all the deposits")
-    void returns_true_when_list_of_transaction_contains_all_deposits() throws WrongAmountException {
-        Amount firstAmount = Amount.of("100");
-        Amount secondAmount = Amount.of("25.50");
-        Amount thirdAmount = Amount.of("121.33");
+    void returns_true_when_list_of_transaction_contains_all_deposits() {
+        Amount firstAmount = Amount.of(new BigDecimal("100"));
+        Amount secondAmount = Amount.of(new BigDecimal("25.50"));
+        Amount thirdAmount = Amount.of(new BigDecimal("121.33"));
 
         List<Transaction> expectedTransactionHistory = Arrays.asList(
                 new Transaction(LocalDateTime.now(), firstAmount),
@@ -59,11 +60,11 @@ public class AccountHistoryTest {
     @Test
     @DisplayName("Test 3: after a few transactions, transaction history contains all the transactions")
     void returns_true_when_list_of_transaction_contains_all_transactions() throws WrongAmountException {
-        Amount firstAmount = Amount.of("1627.45");
-        Amount secondAmount = Amount.of("25.50");
-        Amount thirdAmount = Amount.of("121.33");
-        Amount fourthAmount = Amount.of("46.46");
-        Amount fifthAmount = Amount.of("827.06");
+        Amount firstAmount = Amount.of(new BigDecimal("1627.45"));
+        Amount secondAmount = Amount.of(new BigDecimal("25.50"));
+        Amount thirdAmount = Amount.of(new BigDecimal("121.33"));
+        Amount fourthAmount = Amount.of(new BigDecimal("46.46"));
+        Amount fifthAmount = Amount.of(new BigDecimal("827.06"));
 
         List<Transaction> expectedTransactionHistory = Arrays.asList(
                 new Transaction(LocalDateTime.now(), firstAmount),
