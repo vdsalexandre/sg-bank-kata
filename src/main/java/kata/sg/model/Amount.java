@@ -1,7 +1,5 @@
 package kata.sg.model;
 
-import kata.sg.exception.WrongAmountException;
-
 import java.math.BigDecimal;
 
 public class Amount {
