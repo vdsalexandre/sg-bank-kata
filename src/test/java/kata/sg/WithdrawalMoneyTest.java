@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -25,9 +27,9 @@ public class WithdrawalMoneyTest {
                 "15,15,0"})
     @DisplayName("Test 1: after a withdrawal, the account balance is correct")
     void returns_true_when_account_balance_is_equal_to_expected_balance_after_withdrawal(String initialAmount, String amount, String expectedBalance) throws WrongAmountException {
-        Amount accountAmount = Amount.of(initialAmount);
-        Amount withdrawAmount = Amount.of(amount);
-        Amount expectedAmount = Amount.of(expectedBalance);
+        Amount accountAmount = Amount.of(new BigDecimal(initialAmount));
+        Amount withdrawAmount = Amount.of(new BigDecimal(amount));
+        Amount expectedAmount = Amount.of(new BigDecimal(expectedBalance));
 
         Account account = new Account(accountAmount);
         account.withdraw(withdrawAmount);
@@ -38,13 +40,13 @@ public class WithdrawalMoneyTest {
     @Test
     @DisplayName("Test 2: after a few withdrawals, the account balance is still correct")
     void returns_true_when_account_balance_is_equal_to_expected_balance_after_a_few_withdrawals() throws WrongAmountException {
-        Amount expectedBalance = Amount.of("25.50");
+        Amount expectedBalance = Amount.of(new BigDecimal("25.50"));
 
-        Account account = new Account(Amount.of("100.00"));
-        account.withdraw(Amount.of("50.50"));
-        account.withdraw(Amount.of("5.00"));
-        account.withdraw(Amount.of("17.25"));
-        account.withdraw(Amount.of("1.75"));
+        Account account = new Account(Amount.of(new BigDecimal("100.00")));
+        account.withdraw(Amount.of(new BigDecimal("50.50")));
+        account.withdraw(Amount.of(new BigDecimal("5.00")));
+        account.withdraw(Amount.of(new BigDecimal("17.25")));
+        account.withdraw(Amount.of(new BigDecimal("1.75")));
 
         assertThat(account.getBalance()).isEqualTo(expectedBalance);
     }
@@ -54,9 +56,9 @@ public class WithdrawalMoneyTest {
                 "99.99,100",
                 "125000,126000"})
     @DisplayName("Test 3: an exception is thrown when the amount to withdraw is bigger than balance")
-    void throws_wrong_amount_exception_when_trying_to_withdraw_more_than_balance(String balance, String amount) throws WrongAmountException {
-        Account account = new Account(Amount.of(balance));
-        assertThatThrownBy(() -> account.withdraw(Amount.of(amount)))
+    void throws_wrong_amount_exception_when_trying_to_withdraw_more_than_balance(String balance, String amount) {
+        Account account = new Account(Amount.of(new BigDecimal(balance)));
+        assertThatThrownBy(() -> account.withdraw(Amount.of(new BigDecimal(amount))))
                 .isInstanceOf(WrongAmountException.class)
                 .hasMessage("Wrong amount, the amount withdrawn must not be greater than the balance");
     }
